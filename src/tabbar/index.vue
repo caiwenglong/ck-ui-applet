@@ -75,25 +75,26 @@ onShow(() => {
 
 <template>
   <view v-if="customTabbarEnable" class="tabbar-placeholder">
-    <t-tab-bar
-      :value="currentValue"
-      :fixed="true"
+    <wd-tabbar
+      :model-value="currentValue"
+
       :placeholder="false"
-      :safe-area-inset-bottom="true"
+      safe-area-inset-bottom fixed
       :bordered="false"
       shape="round"
       @change="handleChange"
     >
-      <t-tab-bar-item
+      <wd-tabbar-item
         v-for="(item, index) in tabbarList"
         :key="index"
+        :name="item.pagePath"
         :icon="item.icon"
-        :value="item.pagePath"
-        :badge-props="getBadgeProps(item)"
-      >
-        {{ getI18nText(item.text) }}
-      </t-tab-bar-item>
-    </t-tab-bar>
+        :title="getI18nText(item.text)"
+        :value="item.badge === 'dot' ? undefined : item.badge"
+        :is-dot="item.badge === 'dot'"
+        :max="99"
+      />
+    </wd-tabbar>
   </view>
 </template>
 
