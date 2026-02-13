@@ -40,53 +40,57 @@ export function isPageTabbar(path: string) {
 
 /**
  * 自定义 tabbar 的状态管理，原生 tabbar 无需关注本文件
- * tabbar 状态，增加 storageSync 保证刷新浏览器时在正确的 tabbar 页面
+ * 使用 pagePath 作为当前选中值（与 TDesign t-tab-bar 的 value 对齐）
  * 使用reactive简单状态，而不是 pinia 全局状态
  */
 const tabbarStore = reactive({
-  curIdx: uni.getStorageSync('app-tabbar-index') || 0,
-  prevIdx: uni.getStorageSync('app-tabbar-index') || 0,
-  setCurIdx(idx: number) {
-    this.curIdx = idx
-    uni.setStorageSync('app-tabbar-index', idx)
+  /** 当前选中的 tabbar pagePath */
+  curValue: uni.getStorageSync('app-tabbar-value') || '/pages/index/index',
+  /** 上一次选中的 tabbar pagePath */
+  prevValue: uni.getStorageSync('app-tabbar-value') || '/pages/index/index',
+
+  setCurValue(value: string) {
+    this.curValue = value
+    uni.setStorageSync('app-tabbar-value', value)
   },
-  setTabbarItemBadge(idx: number, badge: CustomTabBarItemBadge) {
+
+  setTabbarItemBadge(pagePath: string, badge: CustomTabBarItemBadge) {
     const list = tabbarList.value
-    if (list[idx]) {
-      list[idx].badge = badge
+    const item = list.find(i => i.pagePath === pagePath)
+    if (item) {
+      item.badge = badge
     }
   },
-  setAutoCurIdx(path: string) {
+
+  setAutoCurValue(path: string) {
     const list = tabbarList.value
     if (list.length === 0) {
-      this.setCurIdx(0)
+      this.setCurValue(list[0]?.pagePath || '/pages/index/index')
       return
     }
     // '/' 当做首页
     if (path === '/') {
-      this.setCurIdx(0)
+      this.setCurValue(list[0]?.pagePath || '/pages/index/index')
       return
     }
-    const index = list.findIndex(item => item.pagePath === path)
-    // console.log('tabbarList:', tabbarList)
-    if (index === -1) {
-      const pagesPathList = getCurrentPages().map(item => item.route.startsWith('/') ? item.route : `/${item.route}`)
-      // console.log(pagesPathList)
-      const flag = list.some(item => pagesPathList.includes(item.pagePath))
-      if (!flag) {
-        this.setCurIdx(0)
-        return
-      }
+    const matched = list.find(item => item.pagePath === path)
+    if (matched) {
+      this.setCurValue(matched.pagePath)
     }
     else {
-      this.setCurIdx(index)
+      const pagesPathList = getCurrentPages().map(item => item.route.startsWith('/') ? item.route : `/${item.route}`)
+      const flag = list.some(item => pagesPathList.includes(item.pagePath))
+      if (!flag) {
+        this.setCurValue(list[0]?.pagePath || '/pages/index/index')
+      }
     }
   },
-  restorePrevIdx() {
-    if (this.prevIdx === this.curIdx)
+
+  restorePrevValue() {
+    if (this.prevValue === this.curValue)
       return
-    this.setCurIdx(this.prevIdx)
-    this.prevIdx = uni.getStorageSync('app-tabbar-index') || 0
+    this.setCurValue(this.prevValue)
+    this.prevValue = uni.getStorageSync('app-tabbar-value') || '/pages/index/index'
   },
 })
 

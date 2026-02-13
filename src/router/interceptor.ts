@@ -57,7 +57,7 @@ export const navigateToInterceptor = {
     // }
 
     // 处理直接进入路由非首页时，tabbarIndex 不正确的问题
-    tabbarStore.setAutoCurIdx(path)
+    tabbarStore.setAutoCurValue(path)
 
     // 小程序里面使用平台自带的登录，则不走下面的逻辑
     if (isMp && !LOGIN_PAGE_ENABLE_IN_MP) {
