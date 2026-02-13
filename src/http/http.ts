@@ -76,6 +76,7 @@ export function http<T>(options: CustomRequestOptions) {
                   icon: 'none',
                 })
               })
+
               // 清除用户信息
               await tokenStore.logout()
               // 跳转到登录页

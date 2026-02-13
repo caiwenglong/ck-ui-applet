@@ -4,7 +4,6 @@ export type AuthMode = 'single' | 'double'
 // 单Token响应类型
 export interface ISingleTokenRes {
   token: string
-  expiresIn: number // 有效期(秒)
 }
 
 // 双Token响应类型

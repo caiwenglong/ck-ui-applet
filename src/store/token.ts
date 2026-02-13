@@ -9,7 +9,9 @@ import {
   logout as _logout,
   refreshToken as _refreshToken,
   wxLogin as _wxLogin,
+  wxWorkLogin as _wxWorkLogin,
   getWxCode,
+  getWxWorkCode,
 } from '@/api/login'
 import { isDoubleTokenRes, isSingleTokenRes } from '@/api/types/login'
 import { useUserStore } from './user'
@@ -22,13 +24,12 @@ export const isDoubleTokenMode = import.meta.env.VITE_AUTH_MODE === 'double'
 const tokenInfoState = isDoubleTokenMode
   ? {
       accessToken: '',
-      accessExpiresIn: 0,
+      accessExpiresIn: 1000 * 60 * 60 * 24 * 7,
       refreshToken: '',
-      refreshExpiresIn: 0,
+      refreshExpiresIn: 1000 * 60 * 60 * 24 * 30,
     }
   : {
       token: '',
-      expiresIn: 0,
     }
 
 export const useTokenStore = defineStore(
@@ -59,8 +60,8 @@ export const useTokenStore = defineStore(
       const now = Date.now()
       if (isSingleTokenRes(val)) {
         // 单token模式
-        const expireTime = now + val.expiresIn * 1000
-        uni.setStorageSync('accessTokenExpireTime', expireTime)
+        // const expireTime = now + val.expiresIn * 1000
+        // uni.setStorageSync('accessTokenExpireTime', expireTime)
       }
       else if (isDoubleTokenRes(val)) {
         // 双token模式
@@ -70,22 +71,6 @@ export const useTokenStore = defineStore(
         uni.setStorageSync('refreshTokenExpireTime', refreshExpireTime)
       }
     }
-
-    /**
-     * 判断token是否过期
-     */
-    const isTokenExpired = computed(() => {
-      if (!tokenInfo.value) {
-        return true
-      }
-
-      const now = nowTime.value
-      const expireTime = uni.getStorageSync('accessTokenExpireTime')
-
-      if (!expireTime)
-        return true
-      return now >= expireTime
-    })
 
     /**
      * 判断refreshToken是否过期
@@ -122,7 +107,6 @@ export const useTokenStore = defineStore(
     const login = async (loginForm: ILoginForm) => {
       try {
         const res = await _login(loginForm)
-        console.log('普通登录-res: ', res)
         await _postLogin(res)
         uni.showToast({
           title: '登录成功',
@@ -153,9 +137,7 @@ export const useTokenStore = defineStore(
       try {
         // 获取微信小程序登录的code
         const code = await getWxCode()
-        console.log('微信登录-code: ', code)
         const res = await _wxLogin(code)
-        console.log('微信登录-res: ', res)
         await _postLogin(res)
         uni.showToast({
           title: '登录成功',
@@ -167,6 +149,34 @@ export const useTokenStore = defineStore(
         console.error('微信登录失败:', error)
         uni.showToast({
           title: '微信登录失败，请重试',
+          icon: 'error',
+        })
+        throw error
+      }
+      finally {
+        updateNowTime()
+      }
+    }
+
+    /**
+     * 企业微信登录
+     */
+    const wxWorkLogin = async () => {
+      try {
+        // 获取微信小程序登录的code
+        const { code } = await getWxWorkCode()
+        const res = await _wxWorkLogin({ code })
+        await _postLogin(res)
+        uni.showToast({
+          title: '登录成功',
+          icon: 'success',
+        })
+        return res
+      }
+      catch (error) {
+        console.error('企业微信登录失败:', error)
+        uni.showToast({
+          title: '企业微信登录失败，请重试',
           icon: 'error',
         })
         throw error
@@ -194,7 +204,6 @@ export const useTokenStore = defineStore(
         // 清除存储的过期时间
         uni.removeStorageSync('accessTokenExpireTime')
         uni.removeStorageSync('refreshTokenExpireTime')
-        console.log('退出登录-清除用户信息')
         tokenInfo.value = { ...tokenInfoState }
         uni.removeStorageSync('token')
         const userStore = useUserStore()
@@ -220,7 +229,6 @@ export const useTokenStore = defineStore(
 
         const refreshToken = tokenInfo.value.refreshToken
         const res = await _refreshToken(refreshToken)
-        console.log('刷新token-res: ', res)
         setTokenInfo(res)
         return res
       }
@@ -240,11 +248,6 @@ export const useTokenStore = defineStore(
      * 建议这样使用 tokenStore.updateNowTime().validToken
      */
     const getValidToken = computed(() => {
-      // token已过期，返回空
-      if (isTokenExpired.value) {
-        return ''
-      }
-
       if (!isDoubleTokenMode) {
         return isSingleTokenRes(tokenInfo.value) ? tokenInfo.value.token : ''
       }
@@ -273,8 +276,7 @@ export const useTokenStore = defineStore(
      * 建议这样使用tokenStore.updateNowTime().hasLogin
      */
     const hasValidLogin = computed(() => {
-      console.log('hasValidLogin', hasLoginInfo.value, !isTokenExpired.value)
-      return hasLoginInfo.value && !isTokenExpired.value
+      return hasLoginInfo.value
     })
 
     /**
@@ -300,6 +302,7 @@ export const useTokenStore = defineStore(
       // 核心API方法
       login,
       wxLogin,
+      wxWorkLogin,
       logout,
 
       // 认证状态判断（最常用的）

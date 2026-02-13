@@ -37,7 +37,7 @@ export function refreshToken(refreshToken: string) {
  * 获取用户信息
  */
 export function getUserInfo() {
-  return http.get<IUserInfoRes>('/user/info')
+  return http.get<IUserInfoRes>('/getInfo')
 }
 
 /**
@@ -82,4 +82,27 @@ export function getWxCode() {
  */
 export function wxLogin(data: { code: string }) {
   return http.post<IAuthLoginRes>('/auth/wxLogin', data)
+}
+
+/**
+ * 获取企业微信登录凭证
+ * @returns Promise 包含企业微信登录凭证(code)
+ */
+export function getWxWorkCode() {
+  return new Promise<UniApp.LoginRes>((resolve, reject) => {
+    // @ts-expect-error wx.qy.login is not in uni-app types
+    wx.qy.login({
+      success: (res: any) => resolve(res),
+      fail: (err: any) => reject(new Error(err)),
+    })
+  })
+}
+
+/**
+ * 企业微信登录
+ * @param params 企业微信登录参数，包含code
+ * @returns Promise 包含登录结果
+ */
+export function wxWorkLogin(data: { code: string }) {
+  return http.post<IAuthLoginRes>('/loginByWecom', data)
 }
