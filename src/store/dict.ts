@@ -7,10 +7,8 @@ export const useDictStore = defineStore('dict', () => {
   const getDict = async (dictType?: string) => {
     // 判断 dict Lis 是否为空
     if (!dictList.value || Object.keys(dictList.value).length === 0) {
-      const res = await getAllDict()
-      console.log(res)
-
-      dictList.value = res
+      const { data } = await getAllDict()
+      dictList.value = data
       return dictList.value[dictType]
     }
     else {
@@ -44,7 +42,7 @@ export const useDictStore = defineStore('dict', () => {
     if (dicts.get(type)) {
       return dicts.get(type)
     }
-    const data = await apiGetDictByType(type)
+    const { data } = await apiGetDictByType(type)
     dicts.set(type, data)
     return data
   }

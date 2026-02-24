@@ -27,7 +27,7 @@ const userInfo = ref<any>({
 async function getUserInfo() {
   const res = await httpGet('/system/user/profile')
   console.log('个人信息', res)
-  userInfo.value = res
+  userInfo.value = res.data
 }
 
 const { handleTap } = useSecretTap(() => {

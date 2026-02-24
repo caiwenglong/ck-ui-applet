@@ -40,9 +40,15 @@ export const useUserStore = defineStore(
      */
     const fetchUserInfo = async () => {
       const res = await getUserInfo()
-      setUserInfo(res)
-      return res
+
+      setUserInfo(res.data)
+      return res.data
     }
+
+    // 获取用户信息
+    const userInfoData = computed(() => {
+      return userInfo.value?.user || {}
+    })
 
     return {
       userInfo,
@@ -50,6 +56,7 @@ export const useUserStore = defineStore(
       fetchUserInfo,
       setUserInfo,
       setUserAvatar,
+      userInfoData,
     }
   },
   {

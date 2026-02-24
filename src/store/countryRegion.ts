@@ -7,10 +7,8 @@ export const useCountryRegionStore = defineStore(
     const countryRegion = ref<any[]>([])
 
     const aGetCountryRegion = async () => {
-      const res = await apiGetCountryRegionTree()
-      console.log(res)
-
-      countryRegion.value = res.data
+      const { data } = await apiGetCountryRegionTree()
+      countryRegion.value = data
     }
 
     return {

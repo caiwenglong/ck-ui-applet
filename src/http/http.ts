@@ -1,5 +1,5 @@
 import type { IDoubleTokenRes } from '@/api/types/login'
-import type { CustomRequestOptions, IResponse } from '@/http/types'
+import type { CustomRequestOptions } from '@/http/types'
 import { nextTick } from 'vue'
 import { useTokenStore } from '@/store/token'
 import { isDoubleTokenMode } from '@/utils'
@@ -20,8 +20,8 @@ export function http<T>(options: CustomRequestOptions) {
       responseType: 'json',
       // #endif
       // 响应成功
-      success: async (res) => {
-        const responseData = res.data as IResponse<T>
+      success: async (res: any) => {
+        const responseData = res.data as any
         const { code } = responseData
 
         // 检查是否是401错误（包括HTTP状态码401或业务码401）
@@ -102,14 +102,14 @@ export function http<T>(options: CustomRequestOptions) {
               title: responseData.msg || responseData.message || '请求错误',
             })
           }
-          return resolve(responseData.data)
+          return resolve(responseData as T)
         }
 
         // 处理其他错误
         !options.hideErrorToast
         && uni.showToast({
           icon: 'none',
-          title: (res.data as any).msg || '请求错误',
+          title: responseData.msg || '请求错误',
         })
         reject(res)
       },

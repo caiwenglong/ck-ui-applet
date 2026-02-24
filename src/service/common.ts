@@ -26,7 +26,7 @@ export const getDict = (dictType: string) => {
 
 // 根据字典类型查询字典数据信息
 export function apiGetDictByType(dictType) {
-  return http({
+  return http<IResData<any>>({
     url: `/system/dict/data/type/${dictType}`,
     method: 'GET',
   })
@@ -81,7 +81,7 @@ export function apiGetCustomerList(params: any) {
 
 // 省市区树
 export const apiGetCountryRegionTree = () => {
-  return http({
+  return http<IResData<any>>({
     url: '/bdm/country/region/tree',
     method: 'GET',
   })

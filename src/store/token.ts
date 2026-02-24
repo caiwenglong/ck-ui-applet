@@ -106,12 +106,12 @@ export const useTokenStore = defineStore(
     const login = async (loginForm: ILoginForm) => {
       try {
         const res = await _login(loginForm)
-        await _postLogin(res)
+        await _postLogin(res.data)
         uni.showToast({
           title: '登录成功',
           icon: 'success',
         })
-        return res
+        return res.data
       }
       catch (error) {
         console.error('登录失败:', error)
@@ -137,12 +137,12 @@ export const useTokenStore = defineStore(
         // 获取微信小程序登录的code
         const code = await getWxCode()
         const res = await _wxLogin(code)
-        await _postLogin(res)
+        await _postLogin(res.data)
         uni.showToast({
           title: '登录成功',
           icon: 'success',
         })
-        return res
+        return res.data
       }
       catch (error) {
         console.error('微信登录失败:', error)
@@ -165,12 +165,12 @@ export const useTokenStore = defineStore(
         // 获取微信小程序登录的code
         const { code } = await getWxWorkCode()
         const res = await _wxWorkLogin({ code })
-        await _postLogin(res)
+        await _postLogin(res.data)
         uni.showToast({
           title: '登录成功',
           icon: 'success',
         })
-        return res
+        return res.data
       }
       catch (error) {
         console.error('企业微信登录失败:', error)
@@ -228,8 +228,8 @@ export const useTokenStore = defineStore(
 
         const refreshToken = tokenInfo.value.refreshToken
         const res = await _refreshToken(refreshToken)
-        setTokenInfo(res)
-        return res
+        setTokenInfo(res.data)
+        return res.data
       }
       catch (error) {
         console.error('刷新token失败:', error)

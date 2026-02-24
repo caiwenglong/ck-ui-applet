@@ -44,7 +44,7 @@ const dataList = ref<ExchangeRateItem[]>([])
 
 // 请求汇率数据
 async function getExchangeRatePageListByLatest() {
-  const data = await exchangeRatePageListByLatest()
+  const { data } = await exchangeRatePageListByLatest()
   dataList.value = data
 }
 
@@ -98,7 +98,6 @@ function handleGoToSearchPage() {
           text="客户管理"
           url="/pages-mcm/customer/index"
           use-icon-slot
-          @itemclick="click"
         >
           <template #icon>
             <CKIcon name="customer" size="30px" />
@@ -110,49 +109,9 @@ function handleGoToSearchPage() {
           text="联系人查看"
           url="/pages-mcm/customerContact/index"
           use-icon-slot
-          @itemclick="click"
         >
           <template #icon>
             <CKIcon name="msg_1" size="30px" />
-          </template>
-        </wd-grid-item>
-
-        <wd-grid-item
-          text="报价单管理"
-          icon="picture"
-          link-type="navigateTo"
-          url="/pages-mcm/quotation/index"
-          use-icon-slot
-          @itemclick="click"
-        >
-          <template #icon>
-            <CKIcon name="contract_1" size="30px" />
-          </template>
-        </wd-grid-item>
-
-        <wd-grid-item
-          icon="picture"
-          link-type="navigateTo"
-          text="订单管理"
-          url="/pages-ocm/order/index"
-          use-icon-slot
-          @itemclick="click"
-        >
-          <template #icon>
-            <CKIcon name="order_1" size="28px" />
-          </template>
-        </wd-grid-item>
-        <!-- url="/pages-bcm/quotation/index" -->
-        <wd-grid-item
-          icon="picture"
-          link-type="navigateTo"
-          text="报价管理"
-          url="/pages-bcm/quotation/index"
-          use-icon-slot
-          @itemclick="click"
-        >
-          <template #icon>
-            <CKIcon name="quotation" size="28px" />
           </template>
         </wd-grid-item>
       </wd-grid>

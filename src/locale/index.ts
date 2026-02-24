@@ -55,7 +55,7 @@ export function getTemplateByKey(key: string) {
  * @returns
  */
 function formatI18n(template: string, data?: any) {
-  return template.replace(/\{([^}]+)\}/g, (match, key: string) => {
+  return template?.replace(/\{([^}]+)\}/g, (match, key: string) => {
     // console.log( match, key) // => { detail.height }  detail.height
     const arr = key.trim().split('.')
     let result = data
