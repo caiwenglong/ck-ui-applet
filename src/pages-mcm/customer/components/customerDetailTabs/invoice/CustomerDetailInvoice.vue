@@ -141,14 +141,10 @@ function handleAdd() {
 
 // 删除发票信息
 function handleRemove(item: AccountItem) {
-  console.log('点击删除按钮', item)
-
   if (!item?.id) {
     showError({ msg: '缺少发票ID' })
     return
   }
-
-  console.log('准备显示确认框')
 
   message
     .confirm({
@@ -156,7 +152,6 @@ function handleRemove(item: AccountItem) {
       title: '提示',
     })
     .then(() => {
-      console.log('用户确认删除')
       // 确认后执行删除
       showLoading({ msg: '删除中...' })
       mcmInvoiceDelete(item.id!)

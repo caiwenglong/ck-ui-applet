@@ -112,7 +112,6 @@ function handleMoreClick() {
 
 // ActionSheet 选项选择
 function handleActionSelect({ item, index }: { item: any, index: number }) {
-  console.log('选中项:', item, '下标:', index)
   showActionSheet.value = false
 
   if (item.type === 'edit') {

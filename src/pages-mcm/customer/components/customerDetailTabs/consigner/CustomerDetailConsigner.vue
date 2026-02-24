@@ -222,14 +222,10 @@ function handleAdd() {
 
 // 删除常用收发人
 function handleRemove(item: ConsignerItem) {
-  console.log('点击删除按钮', item)
-
   if (!item?.id) {
     showError({ msg: '缺少常用收发人ID' })
     return
   }
-
-  console.log('准备显示确认框')
 
   message
     .confirm({
@@ -237,7 +233,6 @@ function handleRemove(item: ConsignerItem) {
       title: '提示',
     })
     .then(() => {
-      console.log('用户确认删除')
       // 确认后执行删除
       showLoading({ msg: '删除中...' })
       mcmConsignerDelete(item.id!)

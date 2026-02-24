@@ -87,8 +87,6 @@ function setDefaultSalesman() {
     if (currentUserId) {
       // 检查当前用户是否在用户列表中
       const existsInList = userList.value.some(user => user.value === currentUserId)
-      console.log('existsInList', existsInList)
-      console.log('userList.value', userList.value)
       // 只有当当前用户在列表中时，才设置默认值
       if (existsInList) {
         model.value.salesmanId = currentUserId

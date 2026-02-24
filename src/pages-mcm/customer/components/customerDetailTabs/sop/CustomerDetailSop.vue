@@ -131,8 +131,6 @@ function getSopTitle(item: SopItem) {
   // 字典翻译：字典 key 为 sop_type
   try {
     const v1 = dict('sop_type', raw)
-    console.log(v1)
-    console.log('------------------------------')
 
     if (v1 !== raw && v1 !== '-' && v1 !== '')
       return String(v1)
@@ -181,14 +179,10 @@ function handleAdd() {
 
 // 删除客户SOP
 function handleRemove(item: SopItem) {
-  console.log('点击删除按钮', item)
-
   if (!item?.id) {
     showError({ msg: '缺少客户SOP ID' })
     return
   }
-
-  console.log('准备显示确认框')
 
   message
     .confirm({
@@ -196,7 +190,6 @@ function handleRemove(item: SopItem) {
       title: '提示',
     })
     .then(() => {
-      console.log('用户确认删除')
       // 确认后执行删除
       showLoading({ msg: '删除中...' })
       mcmCustomerSopDelete(item.id!)

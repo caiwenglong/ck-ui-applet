@@ -992,6 +992,12 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
+  '@babel/plugin-syntax-typescript@7.28.6':
+    resolution: {integrity: sha512-+nDNmQye7nlnuuHDboPbGm00Vqg3oO8niRRL27/4LYHUsHYh0zJ1xWOz0uRwNFmM1Avzk8wZbc6rdiYhomzv/A==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+
   '@babel/plugin-syntax-unicode-sets-regex@7.18.6':
     resolution: {integrity: sha512-727YkEAPwSIQTv5im8QHz3upqp92JTWhidIC81Tdx4VJYIte/VndKf1qKrfnnhPLiPghStWfvC/iFaMCQu7Nqg==}
     engines: {node: '>=6.9.0'}
@@ -9422,7 +9428,7 @@ snapshots:
 
   '@babel/generator@7.28.3':
     dependencies:
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.29.0
       '@babel/types': 7.29.0
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
@@ -9581,7 +9587,7 @@ snapshots:
 
   '@babel/helper-member-expression-to-functions@7.27.1':
     dependencies:
-      '@babel/traverse': 7.28.3
+      '@babel/traverse': 7.29.0
       '@babel/types': 7.29.0
     transitivePeerDependencies:
       - supports-color
@@ -9686,9 +9692,9 @@ snapshots:
   '@babel/helper-replace-supers@7.27.1(@babel/core@7.28.3)':
     dependencies:
       '@babel/core': 7.28.3
-      '@babel/helper-member-expression-to-functions': 7.27.1
+      '@babel/helper-member-expression-to-functions': 7.28.5
       '@babel/helper-optimise-call-expression': 7.27.1
-      '@babel/traverse': 7.28.3
+      '@babel/traverse': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -10132,7 +10138,7 @@ snapshots:
   '@babel/plugin-syntax-import-attributes@7.27.1(@babel/core@7.28.3)':
     dependencies:
       '@babel/core': 7.28.3
-      '@babel/helper-plugin-utils': 7.27.1
+      '@babel/helper-plugin-utils': 7.28.6
 
   '@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.21.4)':
     dependencies:
@@ -10257,12 +10263,17 @@ snapshots:
   '@babel/plugin-syntax-typescript@7.27.1(@babel/core@7.21.4)':
     dependencies:
       '@babel/core': 7.21.4
-      '@babel/helper-plugin-utils': 7.27.1
+      '@babel/helper-plugin-utils': 7.28.6
 
   '@babel/plugin-syntax-typescript@7.27.1(@babel/core@7.28.3)':
     dependencies:
       '@babel/core': 7.28.3
-      '@babel/helper-plugin-utils': 7.27.1
+      '@babel/helper-plugin-utils': 7.28.6
+
+  '@babel/plugin-syntax-typescript@7.28.6(@babel/core@7.28.3)':
+    dependencies:
+      '@babel/core': 7.28.3
+      '@babel/helper-plugin-utils': 7.28.6
 
   '@babel/plugin-syntax-unicode-sets-regex@7.18.6(@babel/core@7.28.3)':
     dependencies:
@@ -11147,7 +11158,7 @@ snapshots:
       '@babel/compat-data': 7.28.0
       '@babel/core': 7.28.3
       '@babel/helper-compilation-targets': 7.27.2
-      '@babel/helper-plugin-utils': 7.27.1
+      '@babel/helper-plugin-utils': 7.28.6
       '@babel/helper-validator-option': 7.27.1
       '@babel/plugin-bugfix-firefox-class-in-computed-class-key': 7.27.1(@babel/core@7.28.3)
       '@babel/plugin-bugfix-safari-class-field-initializer-scope': 7.27.1(@babel/core@7.28.3)
@@ -11251,7 +11262,7 @@ snapshots:
   '@babel/template@7.27.2':
     dependencies:
       '@babel/code-frame': 7.27.1
-      '@babel/parser': 7.28.3
+      '@babel/parser': 7.29.0
       '@babel/types': 7.29.0
 
   '@babel/template@7.28.6':
@@ -11280,7 +11291,7 @@ snapshots:
       '@babel/code-frame': 7.27.1
       '@babel/generator': 7.29.0
       '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.28.3
+      '@babel/parser': 7.29.0
       '@babel/template': 7.27.2
       '@babel/types': 7.29.0
       debug: 4.4.3
@@ -11500,7 +11511,7 @@ snapshots:
 
   '@dcloudio/uni-app-uts@3.0.0-4070620250821001(postcss@8.5.6)(rollup@4.50.0)(vue@3.4.21(typescript@5.8.3))':
     dependencies:
-      '@babel/parser': 7.28.3
+      '@babel/parser': 7.29.0
       '@babel/types': 7.28.2
       '@dcloudio/uni-cli-shared': 3.0.0-4070620250821001(postcss@8.5.6)(rollup@4.50.0)(vue@3.4.21(typescript@5.8.3))
       '@dcloudio/uni-console': 3.0.0-4070620250821001(postcss@8.5.6)(rollup@4.50.0)(vue@3.4.21(typescript@5.8.3))
@@ -11871,7 +11882,7 @@ snapshots:
   '@dcloudio/uni-mp-compiler@3.0.0-4070620250821001(postcss@8.5.6)(rollup@4.50.0)(vue@3.4.21(typescript@5.8.3))':
     dependencies:
       '@babel/generator': 7.29.0
-      '@babel/parser': 7.28.3
+      '@babel/parser': 7.29.0
       '@babel/types': 7.29.0
       '@dcloudio/uni-cli-shared': 3.0.0-4070620250821001(postcss@8.5.6)(rollup@4.50.0)(vue@3.4.21(typescript@5.8.3))
       '@dcloudio/uni-shared': 3.0.0-4070620250821001
@@ -14132,7 +14143,7 @@ snapshots:
   '@vue/babel-plugin-jsx@1.5.0(@babel/core@7.28.3)':
     dependencies:
       '@babel/helper-module-imports': 7.27.1
-      '@babel/helper-plugin-utils': 7.27.1
+      '@babel/helper-plugin-utils': 7.28.6
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.28.3)
       '@babel/template': 7.27.2
       '@babel/traverse': 7.28.3
@@ -14166,7 +14177,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.20':
     dependencies:
-      '@babel/parser': 7.28.3
+      '@babel/parser': 7.29.0
       '@vue/shared': 3.5.20
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -14174,7 +14185,7 @@ snapshots:
 
   '@vue/compiler-core@3.5.22':
     dependencies:
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.29.0
       '@vue/shared': 3.5.22
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -17711,7 +17722,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.3
       '@babel/generator': 7.29.0
-      '@babel/plugin-syntax-typescript': 7.27.1(@babel/core@7.28.3)
+      '@babel/plugin-syntax-typescript': 7.28.6(@babel/core@7.28.3)
       '@babel/traverse': 7.29.0
       '@babel/types': 7.29.0
       '@jest/transform': 27.5.1

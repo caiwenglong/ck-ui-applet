@@ -385,7 +385,6 @@ function handleCustomerSourceChange() {
 
 // 提交表单
 async function handleSubmit() {
-  console.log(model, 'model')
   try {
     // 先验证联系人列表（至少需要一个联系人）
     if (!formTabsData.value.contactList || formTabsData.value.contactList.length === 0) {

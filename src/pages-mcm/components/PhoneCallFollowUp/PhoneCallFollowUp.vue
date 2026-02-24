@@ -237,7 +237,6 @@ function handleTrackContentFocus() {
     followUpForm.value.trackContent = content
     setTimeout(() => {
       trackCursor.value = len
-      console.log(`${trackCursor.value}trackCursor.value`)
     }, 100)
   })
 }

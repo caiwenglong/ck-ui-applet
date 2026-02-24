@@ -26,7 +26,6 @@ const userInfo = ref<any>({
 // 获取个人信息
 async function getUserInfo() {
   const res = await httpGet('/system/user/profile')
-  console.log('个人信息', res)
   userInfo.value = res.data
 }
 

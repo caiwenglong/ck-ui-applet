@@ -7,8 +7,6 @@
  *   {
  *     maxSize: 5, // 最大5MB
  *     sourceType: ['album'], // 仅支持从相册选择
- *     onProgress: (p) => console.log(`上传进度：${p}%`),
- *     onSuccess: (res) => console.log('上传成功', res),
  *     onError: (err) => console.error('上传失败', err),
  *   },
  * )
@@ -188,8 +186,6 @@ export function useUpload<T = string>(url: string, formData: Record<string, any>
       sizeType,
       sourceType,
       success: (res) => {
-        console.log('选择图片成功:', res)
-
         // 开始上传
         loading.value = true
         progress.value = 0

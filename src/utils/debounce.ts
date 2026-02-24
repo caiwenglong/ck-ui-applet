@@ -58,7 +58,6 @@ export interface DebouncedFunction<F extends (...args: any[]) => void> {
  *
  * @example
  * const debouncedFunction = debounce(() => {
- *   console.log('Function executed');
  * }, 1000);
  *
  * // Will log 'Function executed' after 1 second if not called again in that time
@@ -71,7 +70,6 @@ export interface DebouncedFunction<F extends (...args: any[]) => void> {
  * const controller = new AbortController();
  * const signal = controller.signal;
  * const debouncedWithSignal = debounce(() => {
- *  console.log('Function executed');
  * }, 1000, { signal });
  *
  * debouncedWithSignal();

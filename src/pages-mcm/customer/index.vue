@@ -222,8 +222,6 @@ const form = ref<any>({
 
 // 获取分页数据
 async function fetchData() {
-  console.log('我刷新了', 'fetchData')
-
   const { data } = await mcmCustomerPageList({
     ...form.value,
     goodsTag: form.value.goodsTag || '',
@@ -411,7 +409,6 @@ const selectedCustomerId = ref<string | number | undefined>(undefined)
 
 // 跳转详情
 function handleDetail(item: any) {
-  console.log(item)
   uni.navigateTo({
     url: `/pages-mcm/customer/customerDetails?id=${item.id}`,
   })

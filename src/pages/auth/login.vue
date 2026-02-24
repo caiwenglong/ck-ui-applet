@@ -19,7 +19,6 @@ async function doLogin() {
     uni.navigateBack()
   }
   catch (error) {
-    console.log('登录失败', error)
   }
 }
 </script>
