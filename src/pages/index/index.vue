@@ -15,23 +15,12 @@ definePage({
   style: {
     // 'custom' 表示开启自定义导航栏，默认 'default'
     navigationStyle: 'custom',
-    navigationBarTitleText: '首页',
   },
 })
 
 const userStore = useUserStore()
 const dictStore = useDictStore()
 const countryRegionStore = useCountryRegionStore()
-
-const navbarActive = ref(1)
-onPageScroll((e) => {
-  if (e.scrollTop > 20) {
-    navbarActive.value = 0
-  }
-  else if (e.scrollTop < 20) {
-    navbarActive.value = 1
-  }
-})
 
 // 在 script 标签内添加类型定义
 interface ExchangeRateItem {
@@ -71,15 +60,13 @@ function handleGoToSearchPage() {
 <template>
   <view class="page-index">
     <!--  标题  -->
-    <view :style="{ opacity: navbarActive }" class="navbar-wrapper">
-      <wd-navbar
-        :bordered="false"
-        title="宸坤供应链"
-        custom-style="background-color: transparent !important;"
-
-        placeholder safeareainsettop fixed
-      />
-    </view>
+    <wd-navbar
+      :fixed="true"
+      :placeholder="true"
+      :safe-area-inset-top="true"
+      custom-style="background-color: #eae6ff !important;"
+      title="宸坤供应链"
+    />
 
     <!-- 搜索栏 -->
     <view class="search-container">

@@ -1,5 +1,16 @@
 <template>
   <view class="contact-page">
+    <!--  标题  -->
+    <wd-navbar
+      :fixed="true"
+      :left-arrow="true"
+      :placeholder="true"
+      :safe-area-inset-top="true"
+      custom-style="background-color: #eae6ff !important;"
+      title="联系人"
+      @click-left="handleGeneralBack"
+    />
+
     <!-- 顶部搜索 -->
     <view class="header-section">
       <view class="search-container">
@@ -126,6 +137,16 @@ import CKIcon from '@/pages-mcm/components/CKIcon/CKIcon.vue'
 import PhoneCallFollowUp from '@/pages-mcm/components/PhoneCallFollowUp/PhoneCallFollowUp.vue'
 
 import { mcmCustomerContactList } from '@/pages-mcm/service/customer'
+import { handleGeneralBack } from '@/utils/function'
+
+defineOptions({
+  name: 'CustomerContact',
+})
+definePage({
+  style: {
+    navigationStyle: 'custom',
+  },
+})
 
 // --- 状态 ---
 const searchValue = ref('')

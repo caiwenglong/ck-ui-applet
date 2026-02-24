@@ -1,5 +1,16 @@
 <template>
   <view class="mcm-search-page">
+    <!--  标题  -->
+    <wd-navbar
+      :fixed="true"
+      :left-arrow="true"
+      :placeholder="true"
+      :safe-area-inset-top="true"
+      custom-style="background-color: #eae6ff !important;"
+      title="搜索"
+      @click-left="handleGeneralBack"
+    />
+
     <!-- 顶部标签页 -->
     <view class="header-section">
       <wd-tabs v-model="currentTab" sticky @change="handleTabChange">
@@ -124,6 +135,16 @@ import { onLoad, onReachBottom } from '@dcloudio/uni-app'
 import CKIcon from '@/pages-mcm/components/CKIcon/CKIcon.vue'
 import PhoneCallFollowUp from '@/pages-mcm/components/PhoneCallFollowUp/PhoneCallFollowUp.vue'
 import { mcmCustomerContactList, mcmCustomerPageList } from '@/pages-mcm/service/customer'
+import { handleGeneralBack } from '@/utils/function'
+
+defineOptions({
+  name: 'McmSearch',
+})
+definePage({
+  style: {
+    navigationStyle: 'custom',
+  },
+})
 
 // --- 类型定义 ---
 interface CustomerResult {
