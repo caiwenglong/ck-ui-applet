@@ -11,6 +11,7 @@ import {
   wxWorkLogin as _wxWorkLogin,
   getWxCode,
   getWxWorkCode,
+  loginByWecomH5,
 } from '@/api/login'
 import { isDoubleTokenRes, isSingleTokenRes } from '@/api/types/login'
 import { useUserStore } from './user'
@@ -153,7 +154,7 @@ export const useTokenStore = defineStore(
         throw error
       }
       finally {
-        // updateNowTime()
+        updateNowTime()
       }
     }
 
@@ -176,6 +177,29 @@ export const useTokenStore = defineStore(
         console.error('企业微信登录失败:', error)
         uni.showToast({
           title: '企业微信登录失败，请重试',
+          icon: 'error',
+        })
+        throw error
+      }
+      finally {
+        updateNowTime()
+      }
+    }
+
+    const userH5Login = async (form: any) => {
+      try {
+        const { data } = await loginByWecomH5(form)
+        await _postLogin(data)
+        uni.showToast({
+          title: '登录成功',
+          icon: 'success',
+        })
+        return data
+      }
+      catch (error) {
+        console.error('登录失败:', error)
+        uni.showToast({
+          title: '登录失败，请重试',
           icon: 'error',
         })
         throw error
@@ -316,6 +340,7 @@ export const useTokenStore = defineStore(
       tokenInfo,
       setTokenInfo,
       updateNowTime,
+      userH5Login,
     }
   },
   {

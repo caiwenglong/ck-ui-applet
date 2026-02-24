@@ -106,3 +106,8 @@ export function getWxWorkCode() {
 export function wxWorkLogin(data: { code: string }) {
   return http.post<IAuthLoginRes>('/loginByWecom', data)
 }
+
+// h5 专用登陆
+export function loginByWecomH5(data: any) {
+  return http.post<any>('/login', data)
+}
