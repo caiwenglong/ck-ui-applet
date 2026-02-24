@@ -1,0 +1,45 @@
+---
+description: 适用于物流供应链结构小程序项目的vibe coding开发规范
+globs: ["src/**/*.vue", "src/**/*.ts"]
+---
+
+# 项目约束与 Vibe Coding 开发规则
+
+## 项目背景
+本项目是一个基于 Vibe Coding 理念开发的**物流供应链小程序**。
+- **技术栈**: Vue 3 (Composition API), TypeScript, Vite, UniApp (unibest 模板)
+- **UI 组件库**: Wot Design Uni
+- **CSS 引擎**: UnoCSS (原子化 CSS)
+- **状态管理**: Pinia
+- **网络请求**: Alova
+
+## 核心“Vibe”准则
+- **DRY (Don't Repeat Yourself)**: 极简、直白。如果代码看起来丑陋或臃肿，那它就是错的，需要重构。
+- **丝滑交互**: 物流应用注重效率，页面响应和交互必须迅速无感。充分利用骨架屏和 Alova 的网络缓存能力提升视觉流畅度。
+- **拥抱现代语法**: 全面使用 `<script setup lang="ts">` 和组合式 API，拒绝 Options API 代码。
+
+## 1. 代码风格与命名
+- **文件命名**: Vue 组件文件一律使用 kebab-case（例如 `order-list.vue`, `delivery-card.vue`）。
+- **变量/函数命名**: 严格使用 camelCase，避免拼音命名，函数名必须体现意图（如 `fetchRouteDetails`、`submitOrder`）。
+- **样式**: **严禁手写不必要的普通 CSS**。充分拥抱并使用 UnoCSS 工具类。只有极其特殊的深度样式穿透覆盖（如 `:deep()`）才写在 `<style>` 标签中。
+
+## 2. 模块化与复用
+- **组件粒度**: 单个 `.vue` 文件核心逻辑与视图尽量控制在 300 行左右。复杂的表单、物流节点卡片、地址选择等必须独立抽离为组件，存放入 `src/components/` 及其子目录。
+- **逻辑抽离 (Composables)**: 跨页面复用的业务逻辑（如获取地理位置定位、扫码解析、发短信验证码）必须提取为 `src/composables/useXXX.ts`。
+
+## 3. 错误处理与容错
+- **请求拦截兜底**: 网络层面的异常（401鉴权失效、500服务级异常、网络超时断开）统一在 Alova 拦截器中处理并给予统一轻提示（Toast），避免在各个组件中过度冗余的 `catch` 或 if-else 判断。
+- **防御性编程**: 广泛采用 Early Return（提前返回）来减少缩进嵌套深度以提高代码可读性。
+  ```typescript
+  // 良好的 Vibe 风格:
+  if (!order || order.status !== 'DELIVERED') return
+  processOrder()
+  ```
+
+## 4. UI 与交互规范 (物流专项)
+- **Tabbar 导航**: 禁用默认原生 Tabbar，使用 UI 组件库 (Wot Design Uni) 的自定义 Tabbar (`wd-tabbar`)，以获得统一的设计语言与高定制自由度。
+- **数据展示与排版**: 物流数据（运单号、时间节点、运输费用、车辆信息等）要求对齐精确，利用 UnoCSS (`flex`, `grid`) 灵活控制版式。确保大表单输入的体验顺畅且带有必要的防重入控制（防止按钮连点）。
+
+## 5. 注释与文档
+- **命名即注释**: 函数、变量名必须做到清晰自解释。
+- **特殊情况标注**: 对于某些为了兼容微信小程序独有机制（如一些特定 API 的限制）而写的妥协性代码，务必添加 `// HACK:` 或 `// FIXME:` 注释以警示团队开发成员。

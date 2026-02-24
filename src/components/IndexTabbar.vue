@@ -34,7 +34,9 @@ function change({ value }) {
 }
 
 onLoad(() => {
-  uni.hideTabBar()
+  uni.hideTabBar({
+    fail: () => {},
+  })
 })
 
 onShow(() => {})

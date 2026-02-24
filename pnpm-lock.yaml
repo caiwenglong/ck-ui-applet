@@ -66,9 +66,6 @@ importers:
       '@dcloudio/uni-quickapp-webview':
         specifier: 3.0.0-4070620250821001
         version: 3.0.0-4070620250821001(postcss@8.5.6)(rollup@4.50.0)(vue@3.4.21(typescript@5.8.3))
-      '@tdesign/uniapp':
-        specifier: latest
-        version: 0.7.1
       abortcontroller-polyfill:
         specifier: ^1.7.8
         version: 1.7.8
@@ -2910,9 +2907,6 @@ packages:
   '@szmarczak/http-timer@4.0.6':
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
     engines: {node: '>=10'}
-
-  '@tdesign/uniapp@0.7.1':
-    resolution: {integrity: sha512-okWrwqcnzjGiMfkafdHsHDePi4ykUo/45Iko7yyL/uVS2kR5aWjCVmjiE+olGvAMPKurshl7e0Q3Q7SZL8r4uA==}
 
   '@tokenizer/token@0.3.0':
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
@@ -13430,8 +13424,6 @@ snapshots:
   '@szmarczak/http-timer@4.0.6':
     dependencies:
       defer-to-connect: 2.0.1
-
-  '@tdesign/uniapp@0.7.1': {}
 
   '@tokenizer/token@0.3.0': {}
 
