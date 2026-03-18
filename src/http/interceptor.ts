@@ -1,6 +1,7 @@
 import type { CustomRequestOptions } from '@/http/types'
 import { useTokenStore } from '@/store'
 import { getEnvBaseUrl } from '@/utils'
+import { isWecomH5 } from '@/utils/env'
 import { stringifyQuery } from './tools/queryString'
 
 // 请求基准地址
@@ -45,7 +46,12 @@ const httpInterceptor = {
     // 1. 请求超时
     options.timeout = 60000 // 60s
     // 2. （可选）添加小程序端请求头标识
+    // 3. 添加端请求头标识
+    const platform = isWecomH5() ? 'wecom-h5' : 'mp-weixin'
     options.header = {
+      'Accept-Language': 'zh-CN',
+      platform, // 可选值与 uniapp 定义的平台一致，告诉后台来源
+      'Client-Type': 'applet', // 固定请求头标识
       ...options.header,
     }
     // 3. 添加 token 请求头标识

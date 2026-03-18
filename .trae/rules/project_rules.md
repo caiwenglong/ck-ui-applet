@@ -67,12 +67,31 @@
 - 使用约定式路由，文件名即路由路径
 - 页面配置在仅需要在 宏`definePage` 中配置标题等内容即可，会自动生成到 `pages.json` 中
 - definePage的顺序在最上面
+- 如果需要新建一个分包，分包的命名规则为 `pages-xxx`，其中 `xxx` 为分包的名称
+- 在分包的目录下开发，分包的全局组件文件放在页面的 `/components/` 目录下
+- 分包底下的的每一个文件夹都代表一个模块，每个模块底下包含有如下文件：
+  - components：用来存放本模块底下的组件文件
+  - common：用来存放本模块底下的公共文件，例如：常量、工具函数、枚举等
+    - common 目录底下通常包含有如下文件：
+      - constants+模块名.ts：用来存放本模块底下的常量
+      - utils+模块名.ts：用来存放本模块底下的工具函数
+      - enums+模块名.ts：用来存放本模块底下的枚举类型
+      - api+模块名.ts：用来存放本模块底下的 API 接口
+  - 在创建新的模块时，需要创建出模块的目录结果，文件名使用驼峰命名，例如：
+    - src/pages/pages-xxx/xxx/
+      - components/
+      - common/
+        - constantsXxx.ts
+        - utilsXxx.ts
+        - enumsXxx.ts
+        - apiXxx.ts
+   
 
 ## 组件开发
 - 全局组件文件放在 `src/components/` 目录下
 - 局部组件文件放在页面的 `/components/` 目录下
 - 使用 uni-app 内置组件和第三方组件库
-- 支持 wot-ui\uview-pro\uv-ui\sard-ui\uview-plus 等多种第三方组件库 和 z-paging 组件
+- 支持 wot-ui 等多种第三方组件库 和 z-paging 组件
 - 自定义组件遵循 uni-app 组件规范
 
 ## 平台适配
